@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/:id/download', (req, res) => {
-  res.download(path.resolve(__dirname, '../../demos/', req.demo.fileName));
+  res.download(path.resolve(__dirname, '../../../../demos/', req.demo.fileName));
 });
 
 export default router;

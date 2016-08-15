@@ -12,6 +12,7 @@ export default class DemoList extends React.Component {
       demos: [],
     };
   }
+
   componentDidMount() {
     fetch(`${window.location.protocol}//${window.location.host}/rest/demos`)
       .then(r => r.json())
@@ -21,6 +22,7 @@ export default class DemoList extends React.Component {
         });
       });
   }
+
   render() {
     if (!this.state.demos.length) {
       return (

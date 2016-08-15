@@ -108,7 +108,7 @@ class Demo {
     this.CT_teamName = pattern[6];
     this.T_teamName = pattern[7];
     this.time.timestamp = (new Date(this.time.year, this.time.month, this.time.day, this.time.hour, this.time.minutes)).getTime();
-    this.download_url = `https://monashcsgo.samuel.ninja/rest/demo/${this.id}/download`;
+    this.download_url = `https://monashcsgo.samuel.ninja/rest/demos/${this.id}/download`;
     return true;
   }
 }
