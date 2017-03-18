@@ -60,7 +60,7 @@ class Demo extends React.Component {
               {`${this._zeroPad(time.day, 2)}-${this._zeroPad(time.month, 2)}-${time.year} ${this._zeroPad(time.hour, 2)}:${this._zeroPad(time.minutes, 2)}`}
             </p>
             <p>
-                Round {round} = Division {division}
+                Round {round} - Division {division}
             </p>
           </CardText>
           <CardActions>
