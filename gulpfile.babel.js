@@ -5,7 +5,10 @@ import browserify from 'gulp-browserify';
 import clean from 'gulp-clean-css';
 import concat from 'gulp-concat';
 import envify from 'gulp-envify';
+import fs from 'fs';
 import less from 'gulp-less';
+import md5 from 'md5';
+import path from 'path';
 import uglify from 'gulp-uglify';
 
 gulp.task('transpile-server', () =>
@@ -53,7 +56,17 @@ gulp.task('minify-css', () =>
     .pipe(gulp.dest('./build/public/css'))
 );
 
-gulp.task('minify', ['minify-js', 'minify-css']);
+gulp.task('minify', ['minify-js', 'minify-css'], () => {
+  const publicPath = path.resolve(__dirname, 'build', 'public');
+  const jsContent = fs.readFileSync(path.resolve(publicPath, 'js', 'index.js'), 'utf8');
+  fs.renameSync(path.resolve(publicPath, 'js', 'index.js'), path.resolve(publicPath, 'js', `index.${md5(jsContent)}.js`));
+
+  const cssContent = fs.readFileSync(path.resolve(publicPath, 'css', 'main.css'), 'utf8');
+  fs.renameSync(path.resolve(publicPath, 'css', 'main.css'), path.resolve(publicPath, 'css', `main.${md5(cssContent)}.css`));
+
+  const htmlContent = fs.readFileSync(path.resolve(publicPath, 'index.html'), 'utf8');
+  fs.writeFileSync(path.resolve(publicPath, 'index.html'), htmlContent.replace('index.js', `index.${md5(jsContent)}.js`).replace('main.css', `main.${md5(cssContent)}.css`));
+});
 
 gulp.task('public', ['browserify-public', 'less', 'html']);
 gulp.task('server', ['transpile-server']);

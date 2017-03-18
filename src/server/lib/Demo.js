@@ -91,6 +91,8 @@ class Demo {
   }
 
   _parseFileName(filePath) {
+    const metadata = require('../../../demos/metadata.json'); // eslint-disable-line global-require
+
     this.fileName = path.basename(filePath);
     this.id = md5(this.fileName);
     const pattern = (/^([0-9]+)-([0-9]+)-([0-9]+)-([0-9]+)-[0-9]+[a-z]+-([a-z_0-9]+)-([a-zA-Z0-9 ]*)-vs-([a-zA-Z0-9 ]*)\.dem/g).exec(this.fileName);
@@ -108,7 +110,16 @@ class Demo {
     this.CT_teamName = pattern[6];
     this.T_teamName = pattern[7];
     this.time.timestamp = (new Date(this.time.year, this.time.month, this.time.day, this.time.hour, this.time.minutes)).getTime();
-    this.download_url = `https://monashcsgo.samuel.ninja/rest/demos/${this.id}/download`;
+    this.download_url = `http${process.env.USERNAME === 'Samuel' ? '' : 's'}://${process.env.USERNAME === 'Samuel' ? 'localhost:3030' : 'monashcsgo.samuel.ninja'}/rest/demos/${this.id}/download`;
+
+    const fName = path.parse(this.fileName).name;
+    if (metadata[fName]) {
+      const meta = metadata[fName];
+      if (meta.t_name) this.T_teamName = meta.t_name;
+      if (meta.ct_name) this.CT_teamName = meta.ct_name;
+      this.division = meta.division || 1;
+      this.round = meta.round || 1;
+    }
     return true;
   }
 }

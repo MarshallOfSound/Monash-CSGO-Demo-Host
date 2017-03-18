@@ -33,7 +33,7 @@ class Demo extends React.Component {
 
   render() {
     const { demo } = this.props;
-    const { time } = demo;
+    const { division, round, time } = demo;
     const teams = Object.keys(demo.teams).map((teamName) =>
       Object.assign({
         name: teamName,
@@ -56,7 +56,12 @@ class Demo extends React.Component {
             <img src={this.props.demo.map.image} role="presentation" />
           </CardMedia>
           <CardText>
-            {`${this._zeroPad(time.day, 2)}-${this._zeroPad(time.month, 2)}-${time.year} ${this._zeroPad(time.hour, 2)}:${this._zeroPad(time.minutes, 2)}`}
+            <p>
+              {`${this._zeroPad(time.day, 2)}-${this._zeroPad(time.month, 2)}-${time.year} ${this._zeroPad(time.hour, 2)}:${this._zeroPad(time.minutes, 2)}`}
+            </p>
+            <p>
+                Round {round} = Division {division}
+            </p>
           </CardText>
           <CardActions>
             <FlatButton label="Details" onClick={this._navigate} />
