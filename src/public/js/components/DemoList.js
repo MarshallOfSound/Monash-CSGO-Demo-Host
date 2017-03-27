@@ -27,7 +27,7 @@ export default class DemoList extends React.Component {
     if (!this.state.demos.length) {
       return (
         <div>
-          <CircularProgress size={2} />
+          <CircularProgress size={119} thickness={7} style={{ margin: 10.5 }} />
         </div>
       );
     }
