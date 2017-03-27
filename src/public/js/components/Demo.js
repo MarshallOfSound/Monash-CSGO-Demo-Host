@@ -60,8 +60,17 @@ class Demo extends React.Component {
               {`${this._zeroPad(time.day, 2)}-${this._zeroPad(time.month, 2)}-${time.year} ${this._zeroPad(time.hour, 2)}:${this._zeroPad(time.minutes, 2)}`}
             </p>
             <p>
-                Round {round} - Division {division}
+                Round {round || 'Unknown'} - Division {division || 'Unknown'}
             </p>
+            <h2 style={{ marginBottom: 4, textAlign: 'center' }}>Scores</h2>
+            <div style={{ display: 'flex' }}>
+              <div style={{ flex: 1, textAlign: 'center', fontSize: 18, borderRight: '1px solid #fff' }}>{LName}</div>
+              <div style={{ flex: 1, textAlign: 'center', fontSize: 18 }}>{RName}</div>
+            </div>
+            <div style={{ display: 'flex' }}>
+              <div style={{ flex: 1, textAlign: 'center', borderRight: '1px solid #fff' }}>{teams[0].score}</div>
+              <div style={{ flex: 1, textAlign: 'center' }}>{teams[1].score}</div>
+            </div>
           </CardText>
           <CardActions>
             <FlatButton label="Details" onClick={this._navigate} />
